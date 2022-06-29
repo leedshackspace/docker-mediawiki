@@ -1,5 +1,13 @@
-Mediawiki in a docker container for EMF. This container bakes in the needed set
-of Mediawiki plugins using composer.
+Mediawiki in a docker container for Leeds Hackspace. This container bakes in the needed set
+of Mediawiki plugins using composer, and should require no manual setup; just deploy with the 
+required values in the environment variables and go.
+
+This file is out of date, you can help by expanding it
+
+## TODO
+
+* Test automatic deployment
+* Test new compose file
 
 ## Development
 

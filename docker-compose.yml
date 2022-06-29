@@ -4,10 +4,14 @@ services:
   mediawiki:
     build: .
     volumes:
-      - ./data/images:/images
-      - ./data/config:/config
+      - ./images:/images
+      - ./config/run:/config
     environment:
-      URL_PREFIX:
+      - URL_PREFIX=
+      - DB_HOST=db
+      - DB_NAME=wiki
+      - DB_USER=wiki
+      - DB_PASS=wiki
     ports:
       - 8087:80
     links:

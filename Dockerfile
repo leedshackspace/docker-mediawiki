@@ -14,7 +14,6 @@ RUN docker-php-ext-install pgsql intl zip && \
 
 ARG MEDIAWIKI_VERSION_MAJOR=1.35
 ARG MEDIAWIKI_VERSION=1.35.5
-ARG URL_PREFIX
 
 RUN curl -s -o /tmp/keys.txt https://www.mediawiki.org/keys/keys.txt && \
     curl -s -o /tmp/mediawiki.tar.gz https://releases.wikimedia.org/mediawiki/$MEDIAWIKI_VERSION_MAJOR/mediawiki-$MEDIAWIKI_VERSION.tar.gz && \
@@ -32,17 +31,25 @@ RUN curl -s -o /tmp/keys.txt https://www.mediawiki.org/keys/keys.txt && \
 
 #RUN curl -s -o /var/www/mediawiki/w/composer.phar https://getcomposer.org/download/latest-stable/composer.phar
 RUN curl -s -o /var/www/mediawiki/w/composer.phar https://getcomposer.org/download/latest-1.x/composer.phar
-COPY config/composer.local.json /var/www/mediawiki/w/composer.local.json
+COPY config/build/composer.local.json /var/www/mediawiki/w/composer.local.json
 RUN cd /var/www/mediawiki/w; php ./composer.phar update --no-dev
 
-COPY config/php-fpm.conf /usr/local/etc/
-COPY config/supervisord.conf /etc/supervisord.conf
-COPY config/nginx.conf.template /etc/nginx/nginx.conf.template
+COPY config/build/php-fpm.conf /usr/local/etc/
+COPY config/build/supervisord.conf /etc/supervisord.conf
+COPY config/build/nginx.conf.template /etc/nginx/nginx.conf.template
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY mwjobrunner.sh /mwjobrunner.sh
+COPY bootstrap /bootstrap
+COPY config/build/LocalSettings.php /var/www/mediawiki/w/LocalSettings.php
 
-RUN ln -s /config/LocalSettings.php /var/www/mediawiki/w/LocalSettings.php
+COPY config/run /config-bake
+
+
+#RUN ln -s /config/LocalSettings.php /var/www/mediawiki/w/LocalSettings.php
 RUN ln -s /config/smw.json /var/www/mediawiki/w/extensions/SemanticMediaWiki/.smw.json
+
+# ENVIRONMENT VARIABLE DEFAULTS
+#ENV URL_PREFIX ${1:+1}
 
 VOLUME ["/images", "/config"]
 EXPOSE 80
