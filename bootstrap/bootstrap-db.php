@@ -23,11 +23,11 @@ if ($pgv_connection == false) {
 }
 
 # TASTY SQLi "CREATE SCHEMA IF NOT EXISTS $wgDBmwschema"
-$result = pg_prepare($pgv_connection, "create_schema_prep", "CREATE SCHEMA IF NOT EXISTS $1");
-$result = pg_execute($pgv_connection, "create_schema_prep", $wgDBmwschema);
+$result = pg_prepare($pgv_connection, "create_schema_prep", 'CREATE SCHEMA IF NOT EXISTS $1');
+$result = pg_execute($pgv_connection, "create_schema_prep", array($wgDBmwschema));
 
-$result = pg_prepare($pgv_connection, "select_schema_prep", "SET search_path TO $1");
-$result = pg_execute($pgv_connection, "select_schema_prep", $wgDBmwschema);
+$result = pg_prepare($pgv_connection, "select_schema_prep", 'SET search_path TO $1');
+$result = pg_execute($pgv_connection, "select_schema_prep", array($wgDBmwschema));
 
 #echo "Issuing \n $queryBase\n";
 echo "Issuing tables.sql\n";
