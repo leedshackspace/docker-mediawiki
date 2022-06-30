@@ -1,4 +1,7 @@
 {
+    "repositories": {
+
+    },
     "require": {
         "mediawiki/sub-page-list": "1.6.*",
         "mediawiki/semantic-media-wiki": "3.2.*",
