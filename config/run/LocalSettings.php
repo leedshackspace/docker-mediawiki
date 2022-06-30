@@ -15,8 +15,8 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	exit;
 }
 
-require_once "/config/DatabaseSettings.php";
-require_once "/config/EmailSettings.php";
+require_once dirname(__FILE__)."/DatabaseSettings.php";
+require_once dirname(__FILE__)."/EmailSettings.php";
 
 
 ## Uncomment this to disable output compression
@@ -97,4 +97,4 @@ $wgRightsIcon = getenv("WG_RIGHTSICON") ?: "$wgResourceBasePath/resources/assets
 # End of automatically generated settings.
 # Add more configuration options below.
 
-require_once "/config/ContainerSettings.php";
+require_once dirname(__FILE__)."/ContainerSettings.php";
