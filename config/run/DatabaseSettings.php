@@ -14,4 +14,4 @@ $wgDBpassword = getenv("DB_PASS");
 
 # Postgres specific settings
 $wgDBport = getenv("DB_PORT") ?: "5432";
-$wgDBmwschema = "mediawiki";
+$wgDBmwschema = getenv("DB_SCHEMA") ?: "mediawiki";

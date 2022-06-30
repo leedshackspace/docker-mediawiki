@@ -90,3 +90,6 @@ wfLoadExtension( 'PageForms' );
 wfLoadExtension( 'Maps' );
 wfLoadExtension( 'SemanticMediaWiki' );
 # wfLoadExtension( 'SubPageList' ); Broken extension do not use
+
+# SemanticMediaWiki Setup
+enableSemantics(getenv("WG_SERVER"));

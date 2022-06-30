@@ -13,6 +13,7 @@ $containerIDHost = parse_url(getenv("WG_SERVER"), PHP_URL_HOST) ?: getenv("WG_SE
 
 $containerSMTPAuth = getenv("SMTP_USER") && getenv("SMTP_PASS");
 
+# TODO: disable if SMTP settings not provided
 $wgEnableEmail = true;
 $wgEnableUserEmail = true; # UPO
 

@@ -15,6 +15,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	exit;
 }
 
+# TODO: prefer loading config instead of config base for any settings
 require_once dirname(__FILE__)."/DatabaseSettings.php";
 require_once dirname(__FILE__)."/EmailSettings.php";
 
@@ -97,4 +98,5 @@ $wgRightsIcon = getenv("WG_RIGHTSICON") ?: "$wgResourceBasePath/resources/assets
 # End of automatically generated settings.
 # Add more configuration options below.
 
+# TODO: prefer loading config instead of config base for any settings
 require_once dirname(__FILE__)."/ContainerSettings.php";

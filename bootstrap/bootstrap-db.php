@@ -1,16 +1,19 @@
 <?php
 
-$queryBaseFile = "/var/www/mediawiki/w/maintenance/postgres/tables.sql";
-$queryBase = file_get_contents($queryBaseFile)."COMMIT;";
-
-$queryGenFile = "/var/www/mediawiki/w/maintenance/postgres/tables-generated.sql";
-$queryGen = file_get_contents($queryGenFile)."COMMIT;";
-
 $wgDBserver = getenv("DB_HOST") ?: "postgres";
 $wgDBname = getenv("DB_NAME") ?: "postgres";
 $wgDBuser = getenv("DB_USER") ?: "postgres";
 $wgDBpassword = getenv("DB_PASS");
 $wgDBport = getenv("DB_PORT") ?: "5432";
+$wgDBmwschema = getenv("DB_SCHEMA") ?: "mediawiki";
+
+$queryBaseFile = "/var/www/mediawiki/w/maintenance/postgres/tables.sql";
+# TASTY SQLi "SET search_path TO $wgDBmwschema;".
+$queryBase = file_get_contents($queryBaseFile)."COMMIT;";
+
+$queryGenFile = "/var/www/mediawiki/w/maintenance/postgres/tables-generated.sql";
+# TASTY SQLi "SET search_path TO $wgDBmwschema;".
+$queryGen = file_get_contents($queryGenFile)."COMMIT;";
 
 $pgv_connection_string = "host=$wgDBserver dbname=$wgDBname port=$wgDBport user=$wgDBuser password=$wgDBpassword";
 $pgv_connection = pg_connect($pgv_connection_string);
@@ -19,7 +22,12 @@ if ($pgv_connection == false) {
     exit;
 }
 
-#$result = pg_query($pgv_connection, "");
+# TASTY SQLi "CREATE SCHEMA IF NOT EXISTS $wgDBmwschema"
+$result = pg_prepare($pgv_connection, "create_schema_prep", "CREATE SCHEMA IF NOT EXISTS $1");
+$result = pg_execute($pgv_connection, "create_schema_prep", $wgDBmwschema);
+
+$result = pg_prepare($pgv_connection, "select_schema_prep", "SET search_path TO $1");
+$result = pg_execute($pgv_connection, "select_schema_prep", $wgDBmwschema);
 
 #echo "Issuing \n $queryBase\n";
 echo "Issuing tables.sql\n";
