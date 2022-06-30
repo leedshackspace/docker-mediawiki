@@ -12,6 +12,8 @@ RUN docker-php-ext-install pgsql intl zip && \
     	docker-php-ext-enable apcu --ini-name 10-docker-php-ext-apcu.ini && \
     	docker-php-ext-enable apc --ini-name 20-docker-php-ext-apc.ini
 
+RUN docker-php-ext-install calendar
+
 ARG MEDIAWIKI_VERSION_MAJOR=1.35
 ARG MEDIAWIKI_VERSION=1.35.6
 
