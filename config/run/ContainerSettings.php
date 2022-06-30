@@ -87,6 +87,6 @@ wfLoadExtension( 'WikiEditor' );
 
 # Externally provided by composer
 wfLoadExtension( 'PageForms' );
-wfLoadExtension( 'SubPageList' );
-wfLoadExtension( 'PageForms' );
-wfLoadExtension( 'PageForms' );
+wfLoadExtension( 'Maps' );
+wfLoadExtension( 'SemanticMediaWiki' );
+# wfLoadExtension( 'SubPageList' ); Broken extension do not use
