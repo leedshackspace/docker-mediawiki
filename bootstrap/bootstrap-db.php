@@ -44,7 +44,7 @@ if ($result == false) {
         echo "Rollback failed?!?\n";
     }
 } else {
-    echo "Committing\n"
+    echo "Committing\n";
     $result = pg_query($pgv_connection, "COMMIT;");
     if ($result == false) {
         echo "Commit failed?!?\n";
@@ -61,6 +61,7 @@ if ($result == false) {
             echo "Rollback failed?!?\n";
         }
     } else {
+        echo "Committing\n";
         $result = pg_query($pgv_connection, "COMMIT;");
         if ($result == false) {
             echo "Commit failed?!?\n";
