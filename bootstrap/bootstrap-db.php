@@ -9,11 +9,11 @@ $wgDBmwschema = getenv("DB_SCHEMA") ?: "mediawiki";
 
 $queryBaseFile = "/var/www/mediawiki/w/maintenance/postgres/tables.sql";
 # TASTY SQLi "SET search_path TO $wgDBmwschema;".
-$queryBase = file_get_contents($queryBaseFile)."COMMIT;";
+$queryBase = file_get_contents($queryBaseFile);
 
 $queryGenFile = "/var/www/mediawiki/w/maintenance/postgres/tables-generated.sql";
 # TASTY SQLi "SET search_path TO $wgDBmwschema;".
-$queryGen = file_get_contents($queryGenFile)."COMMIT;";
+$queryGen = file_get_contents($queryGenFile);
 
 $pgv_connection_string = "host=$wgDBserver dbname=$wgDBname port=$wgDBport user=$wgDBuser password=$wgDBpassword";
 $pgv_connection = pg_connect($pgv_connection_string);
@@ -44,6 +44,11 @@ if ($result == false) {
         echo "Rollback failed?!?\n";
     }
 } else {
+    echo "Committing\n"
+    $result = pg_query($pgv_connection, "COMMIT;");
+    if ($result == false) {
+        echo "Commit failed?!?\n";
+    }
     #echo "Issuing \n $queryGen\n";
     echo "Issuing tables-generated.sql\n";
     $result = pg_query($pgv_connection, $queryGen);
@@ -54,6 +59,11 @@ if ($result == false) {
         #var_dump($result);
         if ($result == false) {
             echo "Rollback failed?!?\n";
+        }
+    } else {
+        $result = pg_query($pgv_connection, "COMMIT;");
+        if ($result == false) {
+            echo "Commit failed?!?\n";
         }
     }
 }
