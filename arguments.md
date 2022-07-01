@@ -12,8 +12,8 @@ You can setup a route prefix to the wiki using URL PREFIX.
 
 The container will autocreate a GOD account (i.e. full perms wiki access) if these are passed in
 
-* `GOD_NAME` - OPTIONAL - The username of the GOD account created
-* `GOD_PASS` - OPTIONAL | SECURITY - The password of the GOD account created
+* `GOD_NAME` - REQUIRED - The username of the GOD account created
+* `GOD_PASS` - REQUIRED | SECURITY - The password of the GOD account created
 
 ### Mediawiki settings
 
