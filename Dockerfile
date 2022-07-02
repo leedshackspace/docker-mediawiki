@@ -36,8 +36,7 @@ RUN curl -s -o /var/www/mediawiki/w/composer.phar https://getcomposer.org/downlo
 COPY config/build/composer.local.json /var/www/mediawiki/w/composer.local.json
 RUN cd /var/www/mediawiki/w; php ./composer.phar update --no-dev
 
-COPY config/build/config.php /var/www/mediawiki/w/vendor/simplesamlphp/simplesamlphp/config/
-COPY config/build/authsources.php /var/www/mediawiki/w/vendor/simplesamlphp/simplesamlphp/config/
+COPY config/build/SimpleSaml/ /var/www/mediawiki/w/vendor/simplesamlphp/simplesamlphp/config/
 
 COPY config/build/php-fpm.conf /usr/local/etc/
 COPY config/build/supervisord.conf /etc/supervisord.conf
