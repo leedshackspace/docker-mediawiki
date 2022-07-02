@@ -1,6 +1,18 @@
 {
     "repositories": {
-
+        "mwssp": {
+            "package": {
+                "name": "mediawiki/simple-s-a-m-lphp",
+                "type": "mediawiki-extension",
+                "version": "4.5.2",
+                "source": {
+                    "reference": "REL1_35",
+                    "type": "git",
+                    "url": "https://github.com/wikimedia/mediawiki-extensions-SimpleSAMLphp.git"
+                }
+            },
+            "type": "package"
+        }
     },
     "require": {
         "mediawiki/sub-page-list": "1.6.*",
@@ -8,6 +20,9 @@
         "mediawiki/page-forms": "5.3.*",
         "mediawiki/maps": "9.0.*",
         "mediawiki/semantic-forms-select": "3.0.*",
+        "mediawiki/pluggable-auth": "5.7",
+        "mediawiki/simple-s-a-m-lphp": "4.5.2",
+        "simplesamlphp/simplesamlphp": "v1.19.5",
         "pear/mail": "1.4.*",
         "pear/net_smtp": "*"
     }

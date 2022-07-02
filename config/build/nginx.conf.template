@@ -57,6 +57,21 @@ http {
                 rewrite ^$URL_PREFIX/wiki/(.*)$ $URL_PREFIX/w/index.php/$1 last;
             }
 
+            location $URL_PREFIX/simplesaml/ {
+                alias /var/www/mediawiki/w/vendor/simplesamlphp/simplesamlphp/www/;
+
+                location ~ ^(?<prefix>/simplesaml)(?<phpfile>.+?\.php)(?<pathinfo>/.*)?$ {
+                    include          fastcgi_params;
+                    fastcgi_pass     unix:/var/run/mediawiki.sock;
+                    fastcgi_param SCRIPT_FILENAME $document_root$phpfile;
+
+                    # Must be prepended with the baseurlpath
+                    fastcgi_param SCRIPT_NAME /simplesaml$phpfile;
+
+                    fastcgi_param PATH_INFO $pathinfo if_not_empty;
+                }
+            }
+
             location ~ \.php(/|$) {
                 # $request_filename takes into account alias, unlike $fastcgi_script_name,
                 # but isn't affected by $fastcgi_split_path_info. So we rewrite it instead.

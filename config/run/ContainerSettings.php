@@ -93,3 +93,6 @@ wfLoadExtension( 'SemanticMediaWiki' );
 
 # SemanticMediaWiki Setup
 enableSemantics(getenv("WG_SERVER"));
+
+# Maps setup
+$egMapsDefaultService = 'leaflet';
