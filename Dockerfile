@@ -2,7 +2,7 @@ FROM php:7.4-fpm
 
 RUN apt-get update && \
     apt-get -y install apt-transport-https git curl libmagickwand-6.q16-dev imagemagick libicu-dev \
-               libpq-dev supervisor nginx libzip-dev gpg unzip gettext-base && \
+               libpq-dev supervisor nginx libzip-dev gpg unzip gettext-base  && \
     rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pgsql intl zip && \
@@ -13,6 +13,8 @@ RUN docker-php-ext-install pgsql intl zip && \
     	docker-php-ext-enable apc --ini-name 20-docker-php-ext-apc.ini
 
 RUN docker-php-ext-install calendar
+
+RUN docker-php-ext-install pdo pdo_pgsql
 
 ARG MEDIAWIKI_VERSION_MAJOR=1.35
 ARG MEDIAWIKI_VERSION=1.35.6
