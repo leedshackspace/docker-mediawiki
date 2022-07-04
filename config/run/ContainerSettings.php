@@ -96,3 +96,12 @@ enableSemantics(getenv("WG_SERVER"));
 
 # Maps setup
 $egMapsDefaultService = 'leaflet';
+
+# auth
+wfLoadExtension( 'PluggableAuth' );
+wfLoadExtension( 'SimpleSAMLphp' );
+$wgSimpleSAMLphp_InstallDir = "/var/www/mediawiki/w/vendor/simplesamlphp/simplesamlphp";
+$wgSimpleSAMLphp_AuthSourceId = "default-sp";
+$wgSimpleSAMLphp_RealNameAttribute = 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name';
+$wgSimpleSAMLphp_UsernameAttribute = 'http://schemas.goauthentik.io/2021/02/saml/username';
+$wgSimpleSAMLphp_EmailAttribute = 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress';

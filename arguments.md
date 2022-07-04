@@ -58,3 +58,6 @@ This container is setup to use postgres and type exposure is provided as the boo
 * `DB_PORT` - OPTIONAL - Postgres Port - Default `5432`
 * `DB_SCHEMA` - OPTIONAL - Mediawiki's schema name - Default `mediawiki`
 
+## SAML Settings
+
+* `SAML_METADATA_URL` - REQUIRED - URL pointing at SAML metadata

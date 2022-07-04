@@ -4,6 +4,15 @@
  * The configuration of SimpleSAMLphp
  */
 
+$wgDBserver = getenv("DB_HOST") ?: "postgres";
+$wgDBname = getenv("DB_NAME") ?: "postgres";
+$wgDBuser = getenv("DB_USER") ?: "postgres";
+$wgDBpassword = getenv("DB_PASS");
+$wgDBport = getenv("DB_PORT") ?: "5432";
+$wgDBmwschema = getenv("DB_SCHEMA") ?: "mediawiki";
+$pgv_connection_string = "pgsql:host=$wgDBserver;dbname=$wgDBname;port=$wgDBport;user=$wgDBuser;password=$wgDBpassword";
+
+
 $config = [
 
     'baseurlpath' => 'simplesaml/',
@@ -72,7 +81,7 @@ $config = [
     'errorreporting' => false,
 
     'logging.level' => SimpleSAML\Logger::NOTICE,
-    'logging.handler' => 'syslog',
+    'logging.handler' => 'stderr',
 
     'logging.facility' => defined('LOG_LOCAL5') ? constant('LOG_LOCAL5') : LOG_USER,
     'logging.processname' => 'simplesamlphp',
@@ -85,6 +94,10 @@ $config = [
     'idpdisco.enableremember' => true,
     'idpdisco.rememberchecked' => true,
     'idpdisco.validate' => true,
+
+    'store.type'                    => 'sql',
+    'store.sql.dsn'                 => $pgv_connection_string,
+    'store.sql.prefix' => 'SimpleSAMLphp',
 
     /**************************
      | METADATA CONFIGURATION |
@@ -178,27 +191,6 @@ $config = [
      */
     'metadata.sources' => [
         ['type' => 'flatfile'],
+        ['type' => 'xml', 'file' => '/config-bake/pulledMetadata.xml'],
     ],
-
-    /*
-     * Should signing of generated metadata be enabled by default.
-     *
-     * Metadata signing can also be enabled for a individual SP or IdP by setting the
-     * same option in the metadata for the SP or IdP.
-     */
-    'metadata.sign.enable' => false,
-
-    /*
-     * The default key & certificate which should be used to sign generated metadata. These
-     * are files stored in the cert dir.
-     * These values can be overridden by the options with the same names in the SP or
-     * IdP metadata.
-     *
-     * If these aren't specified here or in the metadata for the SP or IdP, then
-     * the 'certificate' and 'privatekey' option in the metadata will be used.
-     * if those aren't set, signing of metadata will fail.
-     */
-    'metadata.sign.privatekey' => null,
-    'metadata.sign.privatekey_pass' => null,
-    'metadata.sign.certificate' => null,
 ];
