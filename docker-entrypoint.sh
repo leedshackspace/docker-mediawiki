@@ -15,7 +15,11 @@ if [[ ! -z "${GOD_NAME}" ]] && [[ ! -z "${GOD_PASS}" ]]; then
 fi
 # Makes Semantic mediawiki work
 php /var/www/mediawiki/w/maintenance/update.php --quick
-curl "${SAML_METADATA_URL}" --output /config-bake/pulledMetadata.xml
+if [[ ! -z "${SSL_BYPASS}" ]]; then
+    curl "${SAML_METADATA_URL}" -k --output /config-bake/pulledMetadata.xml
+else
+    curl "${SAML_METADATA_URL}" --output /config-bake/pulledMetadata.xml
+fi
 envsubst '$URL_PREFIX' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 exec "$@"
 
