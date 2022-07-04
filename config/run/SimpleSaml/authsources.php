@@ -18,4 +18,4 @@ $config = [
 
         'discoURL' => null,
     ],
-]
+];
