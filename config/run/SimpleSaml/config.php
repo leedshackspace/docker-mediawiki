@@ -15,7 +15,7 @@ $pgv_connection_string = "pgsql:host=$wgDBserver;dbname=$wgDBname;port=$wgDBport
 
 $config = [
 
-    'baseurlpath' => 'simplesaml/',
+    'baseurlpath' => getenv("WG_SERVER").'/simplesaml/',
 
     /*
      * The 'application' configuration array groups a set configuration options
